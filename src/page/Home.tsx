@@ -2,13 +2,15 @@ import { FiClock } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import Navbar from "../component/Navbar";
 import DateCard from "../component/card/DateCard";
+import Header from "../component/Header";
+import TaskCard from "../component/card/TaskCard";
 
 const Home = () => {
   return (
     <>
       <div className=" h-screen">
         <div className="container md:max-w-xl bg-purple-500 text-white w-full mx-auto">
-          <div className=" h-[30%] px-3 py-6">
+          <div className="  px-3 py-6">
 
           {/* NavBars */}
             <Navbar text={"14 Sept"} Icon={RxDashboard}/>
@@ -23,8 +25,17 @@ const Home = () => {
             </div>
 
           </div>
-          <div className="bg-white py-3 rounded-tl-4xl">
+          <div className="bg-white  py-3 px-2 rounded-tl-4xl">
               <DateCard/>
+              <div className="task h-[57vh] overflow-y-scroll">
+                <Header text="My Task"/>
+                <TaskCard taskdesc="Working on a urgent pro" tasktime={"6:00 -7:00"} tasktype="Coding"/>
+                <TaskCard taskdesc="Working on a urgent pro" tasktime={"6:00 -7:00"} tasktype="Coding"/>
+                <TaskCard taskdesc="Working on a urgent pro" tasktime={"6:00 -7:00"} tasktype="Coding"/>
+                <TaskCard taskdesc="Working on a urgent pro" tasktime={"6:00 -7:00"} tasktype="Coding"/>
+                <TaskCard taskdesc="Working on a urgent pro" tasktime={"6:00 -7:00"} tasktype="Coding"/>
+                <TaskCard taskdesc="Working on a urgent pro" tasktime={"6:00 -7:00"} tasktype="Coding"/>
+              </div>
           </div>
         </div>
       </div>

@@ -5,30 +5,31 @@ interface Days{
     date:number
     day:string
 }
+// const[date,setDate] = useState<string[]>()
+const arrayDate: string[] = [];
 
-const [day,setDay] = useState<string | [] | {}>()
-const getfourDays = () =>{
-    return Array.from({length:4}, (_,i) =>{
-        const date = dayjs().add(i,'day')
-        // setDay(date.format('D ddd'))
-        const data = date.format('D ddd')
-        const daaa  = [data]
-        console.log(daaa);
-        setDay(daaa)
-        
-        
-    })
-}
+const getfourDays = () => {
+    return Array.from({ length: 4 }, (_, i) => {
+        const date = dayjs().add(i, 'day');
+        const data = date.format('D ddd');
+        arrayDate.push(data);
+    });
+};
 
-getfourDays()
-console.log(day);
+getfourDays();
+
+
 
 
 const DateCard= () => {
   return (
     
-    <div className={`flex flex-col bg-${'bg-purple-600'} `}>
-        
+    <div className={`flex justify-between items-center bg-$ px-2 py-3 gap-3  `}>
+        {arrayDate && arrayDate.map((arrayDat,i) =>(
+          <div key={arrayDat} className={`${i==0 ? "bg-purple-600 text-white":"bg-purple-300 text-black"} px-4 py-3 rounded-md  text-center q q q `}>
+            <p className='text-xl '>{arrayDat}</p>
+          </div>
+        ))}
     </div>
   )
 }
