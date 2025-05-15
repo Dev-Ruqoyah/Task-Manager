@@ -1,10 +1,9 @@
 import dayjs from 'dayjs'
-import React, { useState } from 'react'
 
-interface Days{
-    date:number
-    day:string
-}
+// interface Days{
+//     date:number
+//     day:string
+// }
 // const[date,setDate] = useState<string[]>()
 const arrayDate: string[] = [];
 

@@ -1,4 +1,3 @@
-import { FiClock } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import Navbar from "../component/Navbar";
 import DateCard from "../component/card/DateCard";
