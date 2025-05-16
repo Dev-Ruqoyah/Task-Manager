@@ -3,6 +3,7 @@ import Home from "./page/Home"
 import './App.css'
 import Layout from "./component/Layout"
 import Activity from "./page/Activity"
+import TaskForm from "./page/TaskForm"
 
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
       
         <Route element={<Layout page={Home}/>} path="/"/>
         <Route path="/activity" element={<Layout page={Activity}/>}/>
+        <Route path="/create" element={<Layout page={TaskForm}/>}/>
       </Routes>
     </div>
     </>
