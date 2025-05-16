@@ -8,7 +8,7 @@ interface Props {
 }
 const Navbar:React.FC<Props> = ({text,Icon}) => {
   return (
-    <div className="flex items-center justify-between pb-4">
+    <div className="flex items-center  justify-between pb-4">
       <Icon className="text-lg"/>
       <p className="text-xl ">{text}</p>
       <FiClock className="text-lg" />

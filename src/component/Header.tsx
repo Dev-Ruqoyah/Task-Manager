@@ -5,7 +5,7 @@ interface Props {
 }
 const Header:React.FC<Props> = ({text}) => {
   return (
-    <h4 className='text-2xl font-semibold text-black'>{text}</h4>
+    <h4 className='text-2xl font-semibold text-black py-2'>{text}</h4>
   )
 }
 

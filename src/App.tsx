@@ -1,6 +1,8 @@
 import { Route, Routes } from "react-router-dom"
 import Home from "./page/Home"
 import './App.css'
+import Layout from "./component/Layout"
+import Activity from "./page/Activity"
 
 
 function App() {
@@ -11,7 +13,9 @@ function App() {
     <div className="bg-purple-100">
 
      <Routes>
-        <Route element={<Home/>} path="/"/>
+      
+        <Route element={<Layout page={Home}/>} path="/"/>
+        <Route path="/activity" element={<Layout page={Activity}/>}/>
       </Routes>
     </div>
     </>
