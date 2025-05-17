@@ -11,11 +11,7 @@ const Calendar = () => {
         animate
         mode="multiple"
         navLayout="around"
-        footer={
-          selected
-            ? `Selected: ${selected.toLocaleDateString()}`
-            : "Pick a day."
-        }
+       
       />
     </div>
   );
