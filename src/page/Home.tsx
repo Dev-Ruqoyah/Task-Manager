@@ -3,8 +3,14 @@ import Navbar from "../component/Navbar";
 import DateCard from "../component/card/DateCard";
 import Header from "../component/Header";
 import TaskCard from "../component/card/TaskCard";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
+  const handleClick =()=>{
+    navigate("/activity")
+    
+  }
   return (
     <>
       <div className=" h-[22vh] px-3 py-6 bg-purple-500">
@@ -17,7 +23,7 @@ const Home = () => {
             <p className="text-xl">Today</p>
             <small>6 Tasks</small>
           </div>
-          <button className="py-3 px-4 bg-white text-purple-500 hover:bg-purple-500 hover:text-white rounded-xl transition-all duration-300">
+          <button onClick={()=>handleClick()}  className="py-3 px-4 bg-white text-purple-500 hover:bg-purple-500 hover:text-white rounded-xl transition-all duration-300">
             Add New
           </button>
         </div>

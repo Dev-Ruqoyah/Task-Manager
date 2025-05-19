@@ -3,8 +3,50 @@ import Navbar from "../component/Navbar";
 import Calendar from "../component/Calendar";
 import CategoryCard from "../component/card/CategoryCard";
 import { HiOutlineLightBulb } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import type { RootState } from "@reduxjs/toolkit/query";
+import { useEffect, useState, type JSX } from "react";
+import { setDescription, setTask, setTaskCategory } from "../app/TaskFormSlice";
+import { CiDumbbell, CiMusicNote1 } from "react-icons/ci";
+import type { IconType } from "react-icons";
+import { IoFastFoodOutline } from "react-icons/io5";
+import { LuNotebookTabs } from "react-icons/lu";
 
 const TaskForm = () => {
+  const dispatch = useDispatch();
+  const task = useSelector((state: RootState) => state.task);
+  const { categoryType } = useSelector((state: RootState) => state.category);
+  const categoryMap: Record<string, IconType> = {
+    Idea: HiOutlineLightBulb,
+    Music: CiMusicNote1,
+    Food: IoFastFoodOutline,
+    Work: LuNotebookTabs,
+    Sport: CiDumbbell
+
+
+  };
+  // console.log(category.categoryType);
+
+  // console.log(task);
+
+  const [newTask, setNewTask] = useState<string>("");
+  const [newDesc, setNewDesc] = useState<string>("");
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (newTask.trim() || newDesc.trim()) {
+      dispatch(setTask(newTask));
+      dispatch(setDescription(newDesc));
+      dispatch(setTaskCategory(categoryType))
+      
+      setNewDesc("");
+      setNewTask("");
+    }
+    //  console.log(task);
+  };
+  useEffect(() => {
+    console.log("Updated task from Redux:", task);
+  }, [task]);
   return (
     <>
       <div className="bg-white/8 text-black px-3 py-6">
@@ -16,20 +58,41 @@ const TaskForm = () => {
         </div>
         <div>
           <CategoryCard
-            Icon={HiOutlineLightBulb}
-            categoryType="Idea"
-           
+            Icon={categoryMap[categoryType] || HiOutlineLightBulb}
+            categoryType={categoryType}
           />
 
-          <form className="mt-2">
+          <form className="mt-2" onSubmit={handleSubmit}>
             <div className="border py-4 rounded-md border-purple-400 px-3">
-              <input type="text" placeholder="Name" />
+              <input
+                type="text"
+                placeholder="Name"
+                className="w-full outline-0"
+                value={newTask}
+                onChange={(e) => {
+                  setNewTask(e.target.value);
+                }}
+              />
             </div>
-            <div className="border py-6 rounded-md border-purple-400 px-3 mt-3">
-              <textarea name="" id="" placeholder="Task Description"></textarea>
+            <div className="border  rounded-md border-purple-400  mt-3">
+              <textarea
+                name=""
+                id=""
+                placeholder="Task Description"
+                onChange={(e) => {
+                  setNewDesc(e.target.value);
+                }}
+                className="w-full py-6 px-3 outline-0"
+                value={newDesc}
+              ></textarea>
             </div>
             <div className="mt-2">
-              <button className="py-3 px-2 rounded-md text-white bg-purple-400 hover:bg-purple-600 transition-all duration-300 w-full">Create Task</button>
+              <button
+                type="submit"
+                className="py-3 px-2 rounded-md text-white bg-purple-400 hover:bg-purple-600 transition-all duration-300 w-full"
+              >
+                Create Task
+              </button>
             </div>
           </form>
         </div>

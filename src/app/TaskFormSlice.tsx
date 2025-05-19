@@ -1,18 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit"
+export interface TaskDetails {
+    task:string,
+    taskCategory:string,
+    taskDescription:string
+}
 
-const initialValue = {task:"",taskCategory:"",taskDescription:""}
+const initialState:TaskDetails = {task:"",taskCategory:"",taskDescription:""}
 
 const TaskSlice = createSlice({
     name: "task",
-    initialValue,
+    initialState,
     reducers:{
         setTask:(state,action)=>{
             state.task = action.payload
         },
         setDescription:(state,action)=>{
-            state.task = action.payload
+            state.taskDescription = action.payload
+        },
+        setTaskCategory:(state,action)=>{
+            state.taskCategory = action.payload
         }
     }
 })
-export const {setTask} = TaskSlice.actions
+export const {setTask,setDescription,setTaskCategory} = TaskSlice.actions
 export default TaskSlice.reducer
