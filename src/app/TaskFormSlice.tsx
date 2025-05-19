@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit"
 export interface TaskDetails {
     task:string,
     taskCategory:string,
-    taskDescription:string
+    taskDescription:string,
+    taskTime:TimeRanges
+    TaskDate:Date
 }
 
 const initialState:TaskDetails = {task:"",taskCategory:"",taskDescription:""}
