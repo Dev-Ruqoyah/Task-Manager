@@ -4,6 +4,8 @@ import DateCard from "../component/card/DateCard";
 import Header from "../component/Header";
 import TaskCard from "../component/card/TaskCard";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import type { RootState } from "@reduxjs/toolkit/query";
 
 const Home = () => {
   const navigate = useNavigate()
@@ -11,6 +13,9 @@ const Home = () => {
     navigate("/activity")
     
   }
+  const taskList = useSelector((state:RootState) => state.taskList)
+  console.log(taskList);
+  
   return (
     <>
       <div className=" h-[22vh] px-3 py-6 bg-purple-500">

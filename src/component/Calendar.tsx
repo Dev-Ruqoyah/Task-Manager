@@ -3,6 +3,8 @@ import "react-day-picker/style.css";
 import React, { ChangeEventHandler, useState } from "react";
 
 import { setHours, setMinutes } from "date-fns";
+import { useDispatch } from "react-redux";
+import { setTaskDate, setTaskTime } from "../app/TaskFormSlice";
 
 const Calendar = () => {
   const [selected, setSelected] = useState<Date>();
@@ -10,6 +12,9 @@ const Calendar = () => {
 
   const handleTimeChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const time = e.target.value;
+    console.log(time);
+    dispatch(setTaskTime(time));
+
     if (!selected) {
       setTimeValue(time);
       return;
@@ -36,22 +41,29 @@ const Calendar = () => {
       minutes
     );
     setSelected(newDate);
+    dispatch(setTaskDate(newDate.toISOString()))
   };
+
+  const dispatch = useDispatch();
 
   return (
     <div>
-      <form style={{ marginBlockEnd: "1em" }}>
-        <label>
-          Set the time:{" "}
-          <input type="time" value={timeValue} onChange={handleTimeChange} />
-        </label>
+      <form>
+        <input
+          type="time"
+          value={timeValue}
+          onChange={handleTimeChange}
+          className="border border-purple-400 w-full rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Set the time"
+        />
       </form>
-      <DayPicker  mode="single" animate navLayout="around"
+      <DayPicker
+        mode="single"
+        animate
+        navLayout="around"
         selected={selected}
         onSelect={handleDaySelect}
-        footer={`Selected date: ${
-          selected ? selected.toLocaleString() : "none"
-        }`} />
+      />
     </div>
   );
 };

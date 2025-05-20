@@ -17,7 +17,7 @@ function App() {
       
         <Route element={<Layout page={Home}/>} path="/"/>
         <Route path="/activity" element={<Layout page={Activity}/>}/>
-        <Route path="/create" element={<Layout page={TaskForm}/>}/>
+        <Route path="/create" element={<TaskForm/>}/>
       </Routes>
     </div>
     </>

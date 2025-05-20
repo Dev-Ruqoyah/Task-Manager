@@ -11,9 +11,13 @@ import { CiDumbbell, CiMusicNote1 } from "react-icons/ci";
 import type { IconType } from "react-icons";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { LuNotebookTabs } from "react-icons/lu";
+import { addTask } from "../app/TaskListSlice";
+import { useNavigate } from "react-router-dom";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
+      const navigate = useNavigate();
+
   const task = useSelector((state: RootState) => state.task);
   const { categoryType } = useSelector((state: RootState) => state.category);
   const categoryMap: Record<string, IconType> = {
@@ -21,9 +25,7 @@ const TaskForm = () => {
     Music: CiMusicNote1,
     Food: IoFastFoodOutline,
     Work: LuNotebookTabs,
-    Sport: CiDumbbell
-
-
+    Sport: CiDumbbell,
   };
   // console.log(category.categoryType);
 
@@ -37,8 +39,9 @@ const TaskForm = () => {
     if (newTask.trim() || newDesc.trim()) {
       dispatch(setTask(newTask));
       dispatch(setDescription(newDesc));
-      dispatch(setTaskCategory(categoryType))
-      
+      dispatch(setTaskCategory(categoryType));
+      dispatch(addTask(task));
+
       setNewDesc("");
       setNewTask("");
     }
@@ -49,11 +52,11 @@ const TaskForm = () => {
   }, [task]);
   return (
     <>
-      <div className="bg-white/8 text-black px-3 py-6">
+      <div className="bg-white/8 text-black px-4 py-3">
         <div className="header ">
           <Navbar text="Create Task" Icon={FaArrowLeft} />
         </div>
-        <div className="caledar flex items-center justify-center ">
+        <div className="caledar  flex items-center justify-center ">
           <Calendar />
         </div>
         <div>
@@ -62,7 +65,14 @@ const TaskForm = () => {
             categoryType={categoryType}
           />
 
-          <form className="mt-2" onSubmit={handleSubmit}>
+          <form
+            className="mt-1"
+            onSubmit={(e) => {
+              e.preventDefault(); // prevent default form submit
+              handleSubmit(e); // call your submit handler
+              navigate("/"); // navigate after submission
+            }}
+          >
             <div className="border py-4 rounded-md border-purple-400 px-3">
               <input
                 type="text"
@@ -82,7 +92,7 @@ const TaskForm = () => {
                 onChange={(e) => {
                   setNewDesc(e.target.value);
                 }}
-                className="w-full py-6 px-3 outline-0"
+                className="w-full py-4 px-3 outline-0"
                 value={newDesc}
               ></textarea>
             </div>

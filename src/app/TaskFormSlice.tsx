@@ -3,11 +3,11 @@ export interface TaskDetails {
     task:string,
     taskCategory:string,
     taskDescription:string,
-    taskTime:TimeRanges
-    TaskDate:Date
+    taskTime:string
+    taskDate:Date
 }
 
-const initialState:TaskDetails = {task:"",taskCategory:"",taskDescription:""}
+const initialState:TaskDetails = {task:"",taskCategory:"",taskDescription:"",taskTime:"12:00",taskDate: new Date().toISOString()}
 
 const TaskSlice = createSlice({
     name: "task",
@@ -21,8 +21,14 @@ const TaskSlice = createSlice({
         },
         setTaskCategory:(state,action)=>{
             state.taskCategory = action.payload
+        },
+        setTaskTime:(state,action) =>{
+            state.taskTime = action.payload
+        },
+        setTaskDate:(state,action)=>{
+            state.taskDate = action.payload
         }
     }
 })
-export const {setTask,setDescription,setTaskCategory} = TaskSlice.actions
+export const {setTask,setDescription,setTaskCategory,setTaskTime,setTaskDate} = TaskSlice.actions
 export default TaskSlice.reducer
