@@ -6,7 +6,7 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@reduxjs/toolkit/query";
 import { useEffect, useState, type JSX } from "react";
-import { setDescription, setTask, setTaskCategory } from "../app/TaskFormSlice";
+import { setDescription, setTask, setTaskCategory, type TaskDetails } from "../app/TaskFormSlice";
 import { CiDumbbell, CiMusicNote1 } from "react-icons/ci";
 import type { IconType } from "react-icons";
 import { IoFastFoodOutline } from "react-icons/io5";
@@ -18,7 +18,7 @@ const TaskForm = () => {
   const dispatch = useDispatch();
       const navigate = useNavigate();
 
-  const task = useSelector((state: RootState) => state.task);
+  const {taskTime,taskDate} = useSelector((state: RootState) => state.task);
   const { categoryType } = useSelector((state: RootState) => state.category);
   const categoryMap: Record<string, IconType> = {
     Idea: HiOutlineLightBulb,
@@ -37,19 +37,22 @@ const TaskForm = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (newTask.trim() || newDesc.trim()) {
-      dispatch(setTask(newTask));
-      dispatch(setDescription(newDesc));
-      dispatch(setTaskCategory(categoryType));
-      dispatch(addTask(task));
+      const newTaskObj:TaskDetails = {
+        id:Math.floor(Math.random() * 1000000),
+        taskTitle:newTask,
+        taskCategory:categoryType,
+        taskDescription:newDesc,
+        taskTime: taskTime,
+        taskDate:taskDate
+      }
 
-      setNewDesc("");
-      setNewTask("");
+      dispatch(addTask(newTaskObj))
+      navigate("/")
+ 
     }
     //  console.log(task);
   };
-  useEffect(() => {
-    console.log("Updated task from Redux:", task);
-  }, [task]);
+
   return (
     <>
       <div className="bg-white/8 text-black px-4 py-3">

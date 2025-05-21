@@ -1,20 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit"
 export interface TaskDetails {
-    task:string,
+    id:number |null | string
+    taskTitle:string,
     taskCategory:string,
     taskDescription:string,
-    taskTime:string
-    taskDate:Date
+    taskTime:string 
+    taskDate:Date |string |null
 }
 
-const initialState:TaskDetails = {task:"",taskCategory:"",taskDescription:"",taskTime:"12:00",taskDate: new Date().toISOString()}
+const initialState:TaskDetails = {id: null, taskTitle:"",taskCategory:"",taskDescription:"",taskTime:"12:00",taskDate: new Date().toISOString()}
 
 const TaskSlice = createSlice({
     name: "task",
     initialState,
     reducers:{
         setTask:(state,action)=>{
-            state.task = action.payload
+            state.taskTime = action.payload
         },
         setDescription:(state,action)=>{
             state.taskDescription = action.payload

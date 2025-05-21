@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { setCategoryType } from "../../app/CategorySlice";
 
 interface ActivityDetail {
-  Icon: IconType;
+  Icon: IconType | string;
   categoryType: string;
   noOfTask: string | null;
 }

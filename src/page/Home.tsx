@@ -6,6 +6,9 @@ import TaskCard from "../component/card/TaskCard";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import type { RootState } from "@reduxjs/toolkit/query";
+import { useEffect, useState } from "react";
+import type { TaskDetails } from "../app/TaskFormSlice";
+import  EmptyState from "../component/card/EmptyTaskCard";
 
 const Home = () => {
   const navigate = useNavigate()
@@ -13,8 +16,15 @@ const Home = () => {
     navigate("/activity")
     
   }
+  // const [taskLists,setTaskList] = useState<[]>()
+
   const taskList = useSelector((state:RootState) => state.taskList)
   console.log(taskList);
+  useEffect(()=>{
+    console.log(taskList);
+    // setTaskList(taskList)
+    
+  },[taskList])
   
   return (
     <>
@@ -37,52 +47,11 @@ const Home = () => {
         <DateCard />
         <Header text="My Task" />
         <div className="task h-[60vh] overflow-y-scroll">
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
-          <TaskCard
-            taskdesc="Working on a urgent pro"
-            tasktime={"6:00 -7:00"}
-            tasktype="Coding"
-          />
+          {taskList.length === 0? (<EmptyState/>) : (taskList.map((task:TaskDetails)=>(
+            <TaskCard key={task.id}  taskdesc={task.taskDescription} tasktitle={task.taskTitle} tasktime={task.taskTime} />
+          )))}
         </div>
+      
       </div>
     </>
   );
