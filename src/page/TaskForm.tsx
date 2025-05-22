@@ -13,6 +13,7 @@ import { IoFastFoodOutline } from "react-icons/io5";
 import { LuNotebookTabs } from "react-icons/lu";
 import { addTask } from "../app/TaskListSlice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
@@ -43,10 +44,12 @@ const TaskForm = () => {
         taskCategory:categoryType,
         taskDescription:newDesc,
         taskTime: taskTime,
-        taskDate:taskDate
+        taskDate:taskDate,
+        isCompleted:false
       }
 
       dispatch(addTask(newTaskObj))
+      toast("Task Added Successfully")
       navigate("/")
  
     }

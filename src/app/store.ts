@@ -9,5 +9,9 @@ export const store = configureStore({
         taskList:TaskListReducer
     }
 })
+store.subscribe(() => {
+  const state = store.getState();
+  localStorage.setItem("taskList", JSON.stringify(state.taskList));
+});
 export type RootState = ReturnType<typeof store.getState>
 export type AppState = typeof store.dispatch

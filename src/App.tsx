@@ -5,6 +5,7 @@ import Layout from "./component/Layout"
 import Activity from "./page/Activity"
 import TaskForm from "./page/TaskForm"
 import TaskView from "./page/TaskView"
+import { Toaster } from "./components/ui/sonner"
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path="/create" element={<TaskForm/>}/>
         <Route element={<Layout page={TaskView}/>} path="/task/:id"/>
       </Routes>
+      <Toaster/>
     </div>
     </>
   )

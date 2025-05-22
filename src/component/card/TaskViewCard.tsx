@@ -1,22 +1,16 @@
 import React from 'react';
+import type { TaskDetails } from '../../app/TaskFormSlice';
 
-export interface TaskDetails {
-  id: number | null | string;
-  taskTitle: string;
-  taskCategory: string;
-  taskDescription: string;
-  taskTime: string;
-  taskDate: Date | string | null;
-}
+
 
 interface TaskViewCardProps {
   task: TaskDetails;
   onEdit?: () => void;
   onDelete?: () => void;
-  isCompleted?: boolean;
+  
 }
 
-const TaskViewCard: React.FC<TaskViewCardProps> = ({ task, onEdit, onDelete, isCompleted }) => {
+const TaskViewCard: React.FC<TaskViewCardProps> = ({ task, onEdit, onDelete }) => {
   const formattedDate = task.taskDate
     ? new Date(task.taskDate).toLocaleDateString()
     : 'No date provided';
@@ -31,10 +25,10 @@ const TaskViewCard: React.FC<TaskViewCardProps> = ({ task, onEdit, onDelete, isC
         </div>
         <span
           className={`text-xs font-semibold px-3 py-1 rounded-full ${
-            isCompleted ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'
+            task.isCompleted ? 'bg-green-200 text-green-800' : 'bg-yellow-200 text-yellow-800'
           }`}
         >
-          {isCompleted ? 'Completed' : 'Pending'}
+          {task.isCompleted ? 'Completed' : 'Pending'}
         </span>
       </div>
 
