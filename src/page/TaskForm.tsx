@@ -45,11 +45,12 @@ const TaskForm = () => {
         taskDescription:newDesc,
         taskTime: taskTime,
         taskDate:taskDate,
-        isCompleted:false
+        isCompleted:false,
+        isEdited:false
       }
 
       dispatch(addTask(newTaskObj))
-      toast("Task Added Successfully")
+      toast.success("Task Added Successfully")
       navigate("/")
  
     }

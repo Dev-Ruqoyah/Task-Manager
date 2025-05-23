@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@reduxjs/toolkit/query";
 import type { TaskDetails } from "../app/TaskFormSlice";
 import TaskViewCard from "../component/card/TaskViewCard";
-import { removeTask } from "../app/TaskListSlice";
+import { editTask, removeTask } from "../app/TaskListSlice";
 import { toast } from "sonner";
 
 const TaskView = () => {
@@ -25,6 +25,9 @@ const TaskView = () => {
     navigate("/")
   };
 
+  const handleEdit = (taskId:number) =>{
+      dispatch(editTask({taskId}))
+  }
   return (
     <>
       <div className="bg-white-8 p-5">

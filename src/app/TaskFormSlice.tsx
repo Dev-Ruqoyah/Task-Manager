@@ -1,22 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
 export interface TaskDetails {
-  id: string;
+  id: number | string;
   taskTitle: string;
   taskCategory: string;
   taskDescription: string;
   taskTime: string;
   taskDate: Date | string | null;
   isCompleted: boolean;
+  isEdited:boolean
 }
 
 const initialState: TaskDetails = {
-  id: "",
+  id: 0,
   taskTitle: "",
   taskCategory: "",
   taskDescription: "",
   taskTime: "12:00",
   taskDate: new Date().toISOString(),
   isCompleted: false,
+  isEdited:false,
 };
 
 const TaskSlice = createSlice({
