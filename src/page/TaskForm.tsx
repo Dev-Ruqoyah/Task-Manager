@@ -6,20 +6,25 @@ import { HiOutlineLightBulb } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "@reduxjs/toolkit/query";
 import { useEffect, useState, type JSX } from "react";
-import { setDescription, setTask, setTaskCategory, type TaskDetails } from "../app/TaskFormSlice";
+import {
+  setDescription,
+  setTask,
+  setTaskCategory,
+  type TaskDetails,
+} from "../app/TaskFormSlice";
 import { CiDumbbell, CiMusicNote1 } from "react-icons/ci";
 import type { IconType } from "react-icons";
 import { IoFastFoodOutline } from "react-icons/io5";
 import { LuNotebookTabs } from "react-icons/lu";
-import { addTask } from "../app/TaskListSlice";
-import { useNavigate } from "react-router-dom";
+import { addTask, editTask } from "../app/TaskListSlice";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
 
 const TaskForm = () => {
   const dispatch = useDispatch();
-      const navigate = useNavigate();
+  const navigate = useNavigate();
 
-  const {taskTime,taskDate} = useSelector((state: RootState) => state.task);
+  const { taskTime, taskDate } = useSelector((state: RootState) => state.task);
   const { categoryType } = useSelector((state: RootState) => state.category);
   const categoryMap: Record<string, IconType> = {
     Idea: HiOutlineLightBulb,
@@ -28,6 +33,19 @@ const TaskForm = () => {
     Work: LuNotebookTabs,
     Sport: CiDumbbell,
   };
+  const { taskId } = useParams();
+  // console.log(taskId);
+
+  const editingTaskList = useSelector((state: RootState) => state.taskList);
+  const editingTask = editingTaskList.find(
+    (edit: TaskDetails) => edit.id == taskId
+  );
+  // console.log(editingTask);
+  const isEdited = editingTask?.isEdited || false;
+  const taskTitle = editingTask?.taskTitle || "";
+  const taskCategory = editingTask?.taskCategory || "";
+  const taskDescription = editingTask?.taskDescription || "";
+
   // console.log(category.categoryType);
 
   // console.log(task);
@@ -35,27 +53,43 @@ const TaskForm = () => {
   const [newTask, setNewTask] = useState<string>("");
   const [newDesc, setNewDesc] = useState<string>("");
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newTask.trim() || newDesc.trim()) {
-      const newTaskObj:TaskDetails = {
-        id:Math.floor(Math.random() * 1000000),
-        taskTitle:newTask,
-        taskCategory:categoryType,
-        taskDescription:newDesc,
-        taskTime: taskTime,
-        taskDate:taskDate,
-        isCompleted:false,
-        isEdited:false
-      }
+ const handleSubmit = (e: React.FormEvent) => {
+  e.preventDefault();
 
-      dispatch(addTask(newTaskObj))
-      toast.success("Task Added Successfully")
-      navigate("/")
- 
-    }
-    //  console.log(task);
+  if (!newTask.trim() && !newDesc.trim()) {
+    toast.error("Please provide task name or description.");
+    return;
+  }
+
+  const newTaskObj: TaskDetails = {
+    id: editingTask ? editingTask.id : Math.floor(Math.random() * 1000000),
+    taskTitle: newTask,
+    taskCategory: categoryType,
+    taskDescription: newDesc,
+    taskTime: taskTime,
+    taskDate: taskDate,
+    isCompleted: editingTask?.isCompleted || false,
+    isEdited: editingTask ? true : false,
   };
+
+  if (editingTask) {
+    dispatch(editTask({ taskId: editingTask.id, newTaskObj }));
+    toast.success("Task Edited Successfully");
+  } else {
+    dispatch(addTask(newTaskObj));
+    toast.success("Task Added Successfully");
+  }
+  navigate("/");
+};
+
+
+  useEffect(() => {
+    if (editingTask) {
+      setNewTask(taskTitle);
+      setNewDesc(taskDescription);
+      // dispatch(setTaskCategory(editingTask.taskCategory)); // If needed
+    }
+  }, [editingTask]);
 
   return (
     <>
@@ -69,7 +103,7 @@ const TaskForm = () => {
         <div>
           <CategoryCard
             Icon={categoryMap[categoryType] || HiOutlineLightBulb}
-            categoryType={categoryType}
+            categoryType={isEdited ? taskCategory : categoryType}
           />
 
           <form
@@ -108,7 +142,7 @@ const TaskForm = () => {
                 type="submit"
                 className="py-3 px-2 rounded-md text-white bg-purple-400 hover:bg-purple-600 transition-all duration-300 w-full"
               >
-                Create Task
+                {isEdited ? "Edit Task" : "Create Task"}
               </button>
             </div>
           </form>

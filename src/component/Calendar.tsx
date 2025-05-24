@@ -1,10 +1,16 @@
 import { DayPicker } from "react-day-picker";
 import "react-day-picker/style.css";
-import React, { ChangeEventHandler, useState } from "react";
+import React, {type ChangeEventHandler, useEffect, useState } from "react";
 
 import { setHours, setMinutes } from "date-fns";
-import { useDispatch } from "react-redux";
-import { setTaskDate, setTaskTime } from "../app/TaskFormSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  setTaskDate,
+  setTaskTime,
+  type TaskDetails,
+} from "../app/TaskFormSlice";
+import { useParams } from "react-router-dom";
+import type { RootState } from "@reduxjs/toolkit/query";
 
 const Calendar = () => {
   const [selected, setSelected] = useState<Date>();
@@ -12,7 +18,7 @@ const Calendar = () => {
 
   const handleTimeChange: ChangeEventHandler<HTMLInputElement> = (e) => {
     const time = e.target.value;
-    console.log(time);
+    // console.log(time);
     dispatch(setTaskTime(time));
 
     if (!selected) {
@@ -41,10 +47,25 @@ const Calendar = () => {
       minutes
     );
     setSelected(newDate);
-    dispatch(setTaskDate(newDate.toISOString()))
+    dispatch(setTaskDate(newDate.toISOString()));
   };
 
   const dispatch = useDispatch();
+  const { taskId } = useParams();
+  // console.log(taskId);
+
+  const editingTaskList = useSelector((state: RootState) => state.taskList);
+  const editingTask = editingTaskList.find(
+    (edit: TaskDetails) => edit.id == taskId
+  );
+  // console.log(editingTask);
+  const taskTime = editingTask?.taskTime || "";
+
+  useEffect(() => {
+    if (editingTask) {
+      setTimeValue(taskTime);
+    }
+  }, [editingTask]);
 
   return (
     <div>

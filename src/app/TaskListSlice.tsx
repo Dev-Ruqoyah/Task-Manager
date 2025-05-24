@@ -25,15 +25,20 @@ const TaskListSlice = createSlice({
       return task;
     },
 
-    editTask: (state, action) => {
+    markTaskEditing: (state, action) => {
       const { taskId,edited } = action.payload;
       const task = state.find((task) => task.id === taskId);
         if (task) {
         task.isEdited = edited;
       }
     },
+    editTask: (state, action) => {
+      const { taskId, newTaskObj } = action.payload;
+      const index = state.findIndex(task => task.id === taskId);
+      if (index !== -1) state[index] = newTaskObj;
+    },
   },
 });
 
-export const { addTask, setIsCompleted, removeTask,editTask } = TaskListSlice.actions;
+export const { addTask, setIsCompleted, removeTask,editTask,markTaskEditing } = TaskListSlice.actions;
 export default TaskListSlice.reducer;

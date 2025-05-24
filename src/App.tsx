@@ -20,6 +20,7 @@ function App() {
         <Route element={<Layout page={Home}/>} path="/"/>
         <Route path="/activity" element={<Layout page={Activity}/>}/>
         <Route path="/create" element={<TaskForm/>}/>
+        <Route path="/task/:taskId/edit" element={<TaskForm/>}/>
         <Route element={<Layout page={TaskView}/>} path="/task/:id"/>
       </Routes>
       <Toaster/>

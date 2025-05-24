@@ -11,6 +11,10 @@ interface TaskViewCardProps {
 }
 
 const TaskViewCard: React.FC<TaskViewCardProps> = ({ task, onEdit, onDelete }) => {
+
+    if (!task) {
+    return null; // or a fallback UI
+  }
   const formattedDate = task.taskDate
     ? new Date(task.taskDate).toLocaleDateString()
     : 'No date provided';
