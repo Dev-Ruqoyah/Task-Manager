@@ -10,7 +10,8 @@ import {
   type TaskDetails,
 } from "../app/TaskFormSlice";
 import { useParams } from "react-router-dom";
-import type { RootState } from "@reduxjs/toolkit/query";
+
+import type { AppDispatch, RootState } from "@/app/store";
 
 const Calendar = () => {
   const [selected, setSelected] = useState<Date>();
@@ -50,7 +51,7 @@ const Calendar = () => {
     dispatch(setTaskDate(newDate.toISOString()));
   };
 
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const { taskId } = useParams();
   // console.log(taskId);
 

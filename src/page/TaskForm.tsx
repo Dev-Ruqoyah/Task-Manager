@@ -4,7 +4,7 @@ import Calendar from "../component/Calendar";
 import CategoryCard from "../component/card/CategoryCard";
 import { HiOutlineLightBulb } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@reduxjs/toolkit/query";
+
 import { useEffect, useState, type JSX } from "react";
 import {
   setDescription,
@@ -19,9 +19,10 @@ import { LuNotebookTabs } from "react-icons/lu";
 import { addTask, editTask } from "../app/TaskListSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "sonner";
+import { type AppDispatch, type RootState } from "@/app/store";
 
 const TaskForm = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
 
   const { taskTime, taskDate } = useSelector((state: RootState) => state.task);
@@ -105,6 +106,7 @@ const TaskForm = () => {
           <CategoryCard
             Icon={categoryMap[categoryType] || HiOutlineLightBulb}
             categoryType={isEdited ? taskCategory : categoryType}
+            noOfTask={null}
           />
 
           <form

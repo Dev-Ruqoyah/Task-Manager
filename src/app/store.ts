@@ -13,5 +13,6 @@ store.subscribe(() => {
   const state = store.getState();
   localStorage.setItem("taskList", JSON.stringify(state.taskList));
 });
-export type RootState = ReturnType<typeof store.getState>
-export type AppState = typeof store.dispatch
+// export type RootState = ReturnType<typeof store.getState>
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch

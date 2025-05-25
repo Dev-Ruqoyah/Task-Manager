@@ -5,16 +5,17 @@ import Header from "../component/Header";
 import TaskCard from "../component/card/TaskCard";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "@reduxjs/toolkit/query";
+
 import { useEffect, useState } from "react";
 import { type TaskDetails } from "../app/TaskFormSlice";
 import EmptyState from "../component/card/EmptyTaskCard";
 import dayjs from "dayjs";
 import { setIsCompleted } from "../app/TaskListSlice";
+import {type AppDispatch, type RootState } from "@/app/store";
 
 const Home = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const date = dayjs().format("D ddd");
   const taskList = useSelector((state: RootState) => state.taskList);
 
