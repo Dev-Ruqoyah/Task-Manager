@@ -87,6 +87,7 @@ const TaskForm = () => {
     if (editingTask) {
       setNewTask(taskTitle);
       setNewDesc(taskDescription);
+      setTaskCategory(taskCategory)
       // dispatch(setTaskCategory(editingTask.taskCategory)); // If needed
     }
   }, [editingTask]);

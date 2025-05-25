@@ -65,7 +65,7 @@ const Home = () => {
       <div className="bg-white py-3 px-2 rounded-tl-4xl">
         <DateCard />
         <Header text="My Task" />
-        <div className="task h-[60vh] overflow-y-scroll">
+        <div className="task h-[60vh] py-3 pb-10 overflow-y-scroll">
           {taskList.length === 0 ? (
             <EmptyState />
           ) : (

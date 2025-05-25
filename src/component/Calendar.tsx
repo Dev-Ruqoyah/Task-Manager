@@ -64,6 +64,7 @@ const Calendar = () => {
   useEffect(() => {
     if (editingTask) {
       setTimeValue(taskTime);
+      setTaskDate(selected?.toISOString())
     }
   }, [editingTask]);
 
